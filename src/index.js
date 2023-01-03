@@ -1,9 +1,9 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, push } from "firebase/database";
-import { getStorage, storage } from "firebase/storage";
+import { initializeApp, getApp } from "firebase/app";
+import { getDatabase, ref as ref_database, set, push } from "firebase/database";
+import { getStorage, ref as ref_storage, uploadBytes } from "firebase/storage";
 
 console.log(getStorage);
-console.log(storage);
+// console.log(storage);
 
 const firebaseConfig = {
   apiKey: "AIzaSyDMF-AggrvoAEqWbJSJAcVbATBuhgtP6ao",
@@ -18,12 +18,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const storage = getStorage(app);
+const storage = getStorage(app, "gs://docci-store.appspot.com");
 
 function writeUserData(userId, username, email, imageUrl) {
   const db = getDatabase(app);
 
-  const databaseRef = ref(db, "users/" + userId);
+  const databaseRef = ref_database(db, "users/" + userId);
 
   set(databaseRef, {
     username: username,
@@ -37,26 +37,32 @@ var sendButton = document
   .addEventListener("click", () => addProduct());
 
 function addProduct() {
-  const databaseRef = ref(db, "product");
+  // const databaseRef = ref(db, "product");
 
   const file = document.querySelector("#file-input").files[0];
 
   const fileName = file.name;
 
-  const storageRef = ref(storage, fileName);
+  const storageRef = ref_storage(storage, "images");
+  // const imagesRef = ref_storage(storageRef, "images");
+  // const spaceRef = ref_storage(imagesRef, fileName);
 
-  imageRef.put(file).then(() => {
-    console.log("asdasdasdsa");
+  uploadBytes(storageRef, file).then((snapshot) => {
+    console.log("Uploaded a blob or file!");
   });
 
-  const email = document.getElementById("email").value;
-  push(databaseRef, email);
+  // imagesRef.put(file).then(() => {
+  //   console.log("asdasdasdsa");
+  // });
 
-  imageRef.getDownloadURL().then((url) => {
-    db.ref("product").set({
-      fileName: url,
-    });
-  });
+  // const email = document.getElementById("email").value;
+  // push(databaseRef, email);
+
+  // imageRef.getDownloadURL().then((url) => {
+  //   db.ref_database("product").set({
+  //     fileName: url,
+  //   });
+  // });
 }
 
 /* <script type="module">
