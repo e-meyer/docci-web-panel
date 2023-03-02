@@ -34,11 +34,7 @@ var sendButton = document
   .addEventListener("click", () => addProduct());
 
 function addProduct() {
-  // const databaseRef = ref(db, "product");
-
   const file = document.querySelector("#file-input").files[0];
-
-  const fileName = file.name;
 
   const storageRef = ref_storage(storage, "images");
 
