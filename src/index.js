@@ -2,15 +2,26 @@ import { initializeApp, getApp } from "firebase/app";
 import { getDatabase, ref as ref_database, set, push } from "firebase/database";
 import { getStorage, ref as ref_storage, uploadBytes } from "firebase/storage";
 
+require("dotenv").config();
+
+const apiKey = process.env.API_KEY;
+const authDomain = process.env.AUTH_DOMAIN;
+const databaseUrl = process.env.DATABASE_URL;
+const projectId = process.env.PROJECT_ID;
+const storageBucket = process.env.STORAGE_BUCKET;
+const messagingSenderId = process.env.MESSAGING_SENDER_ID;
+const appId = process.env.APP_ID;
+const measurementId = process.env.MEASUREMENT_ID;
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDMF-AggrvoAEqWbJSJAcVbATBuhgtP6ao",
-  authDomain: "docci-store.firebaseapp.com",
-  databaseURL: "https://docci-store-default-rtdb.firebaseio.com",
-  projectId: "docci-store",
-  storageBucket: "docci-store.appspot.com",
-  messagingSenderId: "590438102072",
-  appId: "1:590438102072:web:155b28dea0489b811e22cd",
-  measurementId: "G-G25KZMNZSK",
+  apiKey: apiKey,
+  authDomain: authDomain,
+  databaseURL: databaseUrl,
+  projectId: projectId,
+  storageBucket: storageBucket,
+  messagingSenderId: messagingSenderId,
+  appId: appId,
+  measurementId: measurementId,
 };
 
 const app = initializeApp(firebaseConfig);
